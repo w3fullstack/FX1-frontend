@@ -1,0 +1,1003 @@
+input InputUser {
+  username: String
+  firstName: String
+  lastName: String
+  Avatar: InputMedia
+  token: String
+}
+
+input InputEditUser {
+  Avatar: InputMedia
+}
+
+input InputChangeEmail {
+  email: String!
+}
+
+input InputCreateClub {
+  name: String!
+  Avatar: InputMedia
+  CoverPhoto: InputMedia
+  sportIDs: [String!]!
+  leagueID: String!
+}
+
+input InputEditClub {
+  name: String!
+  Avatar: InputMedia
+  CoverPhoto: InputMedia
+}
+
+input InputCreateChannelGroup {
+  name: String!
+  description: String
+  lockerRoomID: String!
+}
+
+input InputEditChannelGroup {
+  name: String!
+  description: String
+}
+
+input InputCreateChannel {
+  name: String!
+  description: String
+  channelGroupID: String!
+  type: String!
+  userIDs: [String!]
+}
+
+input InputEditChannel {
+  name: String!
+  description: String
+  type: String!
+}
+
+input InputCreatePrivateEncryptedChannel {
+  name: String!
+  description: String
+  userIDs: [String!]!
+  ChannelPhoto: InputMedia
+}
+
+input InputMedia {
+  objectID: String!
+  objectType: String!
+}
+
+input InputQueryMedia {
+  objectID: String!
+  objectType: String!
+  isSport: Boolean!
+  type: String
+}
+
+input InputInviteUserForManagerialRole {
+  emailAddress: String
+  role: String
+}
+
+input InputUpdateLockerRoomUserRoles {
+  type: String!
+  userID: String!
+  role: String
+}
+
+input InputCreateGame {
+  gameID: Int!
+  sport: String!
+  team1ID: String!
+  team2ID: String!
+  team1Name: String!
+  team2Name: String!
+  team1Color: String!
+  team2Color: String!
+  team1DisplayName: String!
+  team2DisplayName: String!
+  date: String!
+  leagueCode: String!
+}
+
+type Users {
+  items: [User!]
+  count: Int
+  next: String
+  total: Int
+}
+
+type Leagues {
+  items: [League!]
+  count: Int
+  next: Int
+  total: Int
+}
+
+type Clubs {
+  items: [Club!]
+  count: Int
+  next: Int
+  total: Int
+}
+
+type ChannelGroups {
+  items: [ChannelGroup!]
+  count: Int
+  next: Int
+  total: Int
+}
+
+type Channels {
+  items: [Channel!]
+  count: Int
+  next: Int
+  total: Int
+}
+
+type Sports {
+  items: [Sport!]
+  count: Int
+  next: Int
+  total: Int
+}
+
+type UserRoles {
+  items: [UserRole!]
+  count: Int
+  next: Int
+  total: Int
+}
+
+type LockerRooms {
+  items: [LockerRoom!]
+  count: Int
+  next: Int
+  total: Int
+}
+
+type Messages {
+  items: [Message!]
+  count: Int
+  next: Int
+  total: Int
+}
+
+type MessagesNextAsString {
+  items: [Message!]
+  count: Int
+  next: String
+  total: Int
+}
+
+type FanGroups {
+  items: [FanGroup!]
+  count: Int
+  next: Int
+  total: Int
+}
+
+type Notifications {
+  items: [Notification!]
+  count: Int
+  next: Int
+  total: Int
+}
+
+type InHouses {
+  items: [InHouse!]
+  count: Int
+  next: Int
+  total: Int
+}
+
+type Games {
+  items: [Game!]
+  count: Int
+  next: String
+  total: Int
+}
+
+type GamePartners {
+  items: [GamePartner!]
+  count: Int
+  next: Int
+  total: Int
+}
+
+type User {
+  id: ID
+  createdAt: Float
+  updatedAt: Float
+  username: String!
+  slug: String!
+  uid: String!
+  firstName: String
+  lastName: String
+  emailAddress: String!
+  isEmailVerified: Boolean
+  Avatar: Media
+  online: Boolean
+  name: String!
+  isBlocked: Boolean
+}
+
+type League {
+  id: ID
+  createdAt: Float
+  updatedAt: Float
+  name: String!
+  slug: String!
+  sportIDs: [String!]!
+  Avatar: Media
+  CoverPhoto: Media
+  boost: Float
+}
+
+type MutationResult {
+  timestamp: Float
+  success: Boolean!
+  objectID: String
+  objectType: String
+}
+
+type Sport {
+  id: ID
+  createdAt: Float
+  updatedAt: Float
+  name: String!
+  slug: String!
+  status: String
+  Avatar: Media!
+  CoverPhoto: Media!
+  Icon: Media
+  LockerRooms(count: Int, cursor: Int): LockerRooms!
+  LockerRoomsByLeague: [LockerRoomsByLeague!]!
+  FanGroupLockerRooms(count: Int, cursor: Int): LockerRooms!
+}
+
+type Club {
+  id: ID
+  createdAt: Float
+  updatedAt: Float
+  name: String!
+  slug: String!
+  sportIDs: [String!]!
+  Avatar: Media
+  CoverPhoto: Media
+  leagueID: String
+  isFeatured: Boolean
+  defaultChannelSlug: String
+  leagueName: String
+  supporterCount: Int
+}
+
+type ChannelGroup {
+  id: ID
+  createdAt: Float
+  updatedAt: Float
+  name: String!
+  slug: String!
+  description: String
+  group: String!
+  lockerRoomID: String!
+  isDeleted: Boolean
+  withLivestream: Boolean
+  Channels: [Channel]
+}
+
+type Channel {
+  id: ID
+  createdAt: Float
+  updatedAt: Float
+  slug: String!
+  description: String
+  channelGroupID: String
+  type: String!
+  isDeleted: Boolean
+  lockerRoomID: String
+  livestreamID: String
+  ChannelPhoto: Media
+  name: String!
+  unreadMessagesCount: Float
+  Livestream: Livestream
+  Roles: UserRolesInPrivateChannel
+
+  # Use to view what the user's current setting in channel notification is.
+  isNotificationActivated: Boolean
+  LastMessage: Message
+
+  # Use to get the encrypted channel encryption key.
+  EncryptionKey: String
+}
+
+type UserRolesInPrivateChannel {
+  Owners: [UserRole!]!
+  Joiners: [UserRole!]!
+}
+
+type UserRole {
+  id: ID
+  createdAt: Float
+  updatedAt: Float
+  group: String!
+  groupType: String!
+  groupID: String!
+  userID: String!
+  uid: String!
+  role: String!
+  status: String!
+  lockerRoomID: String
+  isPrimaryOwner: Boolean
+  User: User!
+  UserRoleType: [UserRoleType!]
+}
+
+type UserRoleType {
+  id: ID
+  name: String!
+}
+
+type Me {
+  id: ID
+  createdAt: Float
+  updatedAt: Float
+  username: String!
+  slug: String!
+  uid: String!
+  firstName: String
+  lastName: String
+  emailAddress: String!
+  unverifiedEmailAddress: String
+  isEmailVerified: Boolean
+  zipCode: String
+  encryptionKey: String
+  Avatar: Media
+  name: String!
+  isSocialAccount: Boolean!
+  Supporting: [LockerRoom!]
+  unseenNotifications: Int!
+  ZipCode: ZipCode
+
+  # Use to view a list of private encrypted channels a user is a member of.
+  JoinedPrivateEncryptedChannels(search: String): [Channel!]
+}
+
+type LockerRoom {
+  id: ID
+  createdAt: Float
+  updatedAt: Float
+  name: String!
+  slug: String!
+  group: String!
+  defaultChannelSlug: String
+  totalUnreadMessagesCount: Int
+  channelCount: Int
+  supporterCount: Int
+  isSupported: Boolean
+
+  # Return role if either owner or manager else null
+  MyRole: UserRole
+  Sports: [Sport]
+  sportsIDs: [String!]!
+  Club: Club
+  League: League
+  FanGroup: FanGroup
+  InHouse: InHouse
+  Game: Game
+  ChannelGroups: [ChannelGroup]
+  Roles: UserRolesInLockerRoom
+}
+
+type UserRolesInLockerRoom {
+  Owners: [UserRole!]!
+  Managers: [UserRole!]!
+  Supporters: [UserRole!]!
+}
+
+type Message {
+  id: ID
+  createdAt: Float
+  updatedAt: Float
+  userID: String!
+  channelSlug: String!
+  text: String
+  chatID: String!
+  repliedToChatID: String
+  Media: [MediaMessage!]
+  gif: String
+  PhotoURLs: [PhotoURL!]
+  isDeletedSelf: Boolean
+  isDeletedEveryone: Boolean
+  isEdited: Boolean
+  isEncrypted: Boolean
+  User: User
+  RepliedTo: Message
+  isUserBlocked: Boolean
+}
+
+type Media {
+  objectID: String!
+  objectType: String!
+  isSport: Boolean
+  isGameLogo: Boolean
+  PhotoURL(type: String): String
+}
+
+type MediaMessage {
+  objectID: String!
+  objectType: String!
+  isSport: Boolean
+  PhotoURL(type: String): String
+}
+
+type UserInvite {
+  id: ID
+  time: Float
+  type: String!
+  userID: String!
+  group: String!
+  url: String
+  expiration: Float
+  data: UserInviteData
+}
+
+type UserInviteData {
+  group: String
+  role: String
+  lockerRoomID: String
+  emailAddress: String
+  lockerRoomSlug: String
+  gameID: String
+  privateChannelID: String
+  privateChannelName: String
+}
+
+type ReadMessage {
+  channelSlug: String!
+  unreadMessagesCount: Float
+}
+
+type ChannelAndChannelGroup {
+  Channels: [Channel]
+  ChannelGroups: [ChannelGroup]
+}
+
+type FanGroup {
+  id: ID
+  createdAt: Float
+  updatedAt: Float
+  name: String!
+  slug: String!
+  sportIDs: [String!]!
+  Avatar: Media
+  CoverPhoto: Media
+  isDeleted: Boolean
+}
+
+type PhotoURL {
+  type: String!
+  photoURL: String
+}
+
+# This is viewable on the specified owner of the targetUserID.
+type Notification {
+  id: ID
+  createdAt: Float
+
+  # This is the userID of the one who replied or mentioned a user.
+  actorUserID: String!
+
+  # This is the uid of the one who replied or mentioned a user.
+  actorUid: String!
+
+  # This is the userID of the one who got replied to or mentioned.
+  targetUserID: String!
+
+  # This is the uid of the one who got replied to or mentioned.
+  targetUid: String!
+
+  # This is the messageID of the reply or where a user got mentioned.
+  messageID: String!
+
+  # This is the chatID of the reply or where a user got mentioned.
+  chatID: String!
+  channelSlug: String!
+  type: String!
+  isRead: Boolean
+  isSeen: Boolean
+  channelName: String!
+  LockerRoom: LockerRoom!
+  Actor: User!
+  Message: Message!
+}
+
+type LockerRoomsByLeague {
+  leagueID: String!
+  leagueName: String!
+  LockerRooms(count: Int, cursor: Int): LockerRooms!
+}
+
+type NotificationWithMessages {
+  Notification: Notification!
+  Messages: [Message!]!
+}
+
+type Livestream {
+  id: ID
+  createdAt: Float
+  updatedAt: Float
+  source: String!
+  link: String!
+  title: String!
+  startDate: String
+  timezone: String
+  isLive: Boolean
+  LivestreamSource: LivestreamSource
+}
+
+type LivestreamSource {
+  id: ID
+  name: String!
+}
+
+type Utilities {
+  Utilities: JSON
+}
+
+type InHouse {
+  id: ID
+  createdAt: Float
+  updatedAt: Float
+  name: String!
+  slug: String!
+  sportIDs: [String!]!
+  Avatar: Media
+  CoverPhoto: Media
+}
+
+type Game {
+  sport: String!
+  gameID: Int!
+  date: Float!
+  points: Int!
+  team1ID: Int
+  team1City: String
+  team1Name: String
+  team1Ranking: Int
+  team1Score: Int
+  team1Color: String
+  team1WithLogo: Boolean
+  team1Logo: String
+  team2ID: Int
+  team2City: String
+  team2Name: String
+  team2Ranking: Int
+  team2Score: Int
+  team2Color: String
+  team2WithLogo: Boolean
+  team2Logo: String
+  location: String
+  headline: String
+  links: [Link]
+  timeLeft: String
+  competition: String
+  coverImage: String
+  pointsLevel: String
+  excitementLevel: String
+  highPoints: Int
+  leagueCode: String
+  team1Nickname: String
+  team2Nickname: String
+  team1DisplayName: String
+  team2DisplayName: String
+  isManual: Boolean
+  group: String!
+  isReminded: Boolean!
+  isLive: Boolean!
+}
+
+type UpcomingGamesByLeagueCode {
+  leagueCode: String!
+  Games: [Game]!
+}
+
+type GameByLeague {
+  mlb: Games
+  wnba: Games
+  nba: Games
+  ncaa: Games
+  nhl: Games
+  concacaf: Games
+  efl: Games
+  uefa: Games
+  mls: Games
+  epl: Games
+}
+
+type Link {
+  source: String
+  type: String
+  url: String
+  iconUrl: String
+  logoUrl: String
+  avatarUrl: String
+}
+
+type ZipCode {
+  zip: String!
+  latitude: Float!
+  longitude: Float!
+  city: String!
+  state: String!
+  country: String!
+}
+
+type GamePartner {
+  id: ID
+  name: String!
+  slug: String!
+  Icon: Media
+  Logo: Media
+  isHidden: Boolean
+}
+
+type GameReminder {
+  uid: String!
+  userID: String!
+  gameID: String!
+  reminderSent: Boolean
+  createdAt: Float
+  updatedAt: Float
+  scheduledTime: Float
+  emailBatchID: String
+}
+
+scalar JSON
+
+type Query {
+  getUser(id: String, slug: String): User
+  getUsers: Users!
+  userNameExists(username: String!): Boolean
+  getUsersByLockerRoom(lockerRoomID: String!, text: String): Users!
+  getAllUsersViaUsername(text: String): Users!
+  getUsersViaUsernameOnPrivateGroup(
+    text: String
+    privateChannelID: String!
+  ): Users!
+  getZipCode(zipCode: String): ZipCode
+  getLeague(id: String, slug: String): League
+  getLeagues: Leagues!
+  getClub(id: String, slug: String): Club
+  getClubs: Clubs!
+  getChannelGroup(id: String, slug: String): ChannelGroup
+  getChannelGroups: ChannelGroups!
+  channelGroupExists(name: String!, lockerRoomID: String!): Boolean
+  getChannel(id: String, slug: String): Channel
+  getChannels(channelGroupID: String): Channels!
+
+  # Use this field to check if such channel name exists in the channel group
+  channelExists(name: String!, channelGroupID: String!): Boolean
+  getActualEventInviteLink(privateChannelID: String!, gameID: String!): String!
+
+  # This is used when inviting users via the copy link button from event room
+  getDynamicEventInviteLink(privateChannelID: String!, gameID: String!): String!
+
+  # This is used when inviting users via the copy link button from event room in private encrypted channel.
+  getPrivateEncryptedChannelDynamicLink(channelID: String!): String!
+
+  # Use to get a list of all users that can be invited in the private encrypted channel.
+  getAvailableUsersForPrivateEncryptedChannel(
+    group: String
+    next: String
+    count: Int
+    name: String
+  ): Users!
+  getSport(id: String, slug: String): Sport
+
+  # This is for the OG querying of sport and currently used in the landing page and OG locker rooms
+  getSports(slugs: [String!]): Sports!
+
+  # This is for the new explore page. Should be use to show the sports that has an Icon.
+  getSportsWithIcon(slugs: [String!]): Sports!
+  getUserRolesInLockerRoom(lockerRoomID: String!): UserRolesInLockerRoom
+  Me: Me
+  getLockerRoom(id: String, slug: String, group: String): LockerRoom
+  getLockerRooms: LockerRooms!
+  invitedUserExists(id: String!): Boolean
+  Supporting: [LockerRoom]
+  getFeatured: [LockerRoom!]!
+  getAvailableUsersForPrivateChannel(
+    lockerRoomID: String!
+    next: String
+    count: Int
+    name: String
+  ): Users!
+  getMessage(id: String!): Message
+  getMessagesByChannelSlug(
+    channelSlug: String!
+    count: Int
+    cursor: Int
+  ): Messages!
+  getMessagesByChannelSlugUsingCreatedAtAsCursor(
+    channelSlug: String!
+    count: Int
+    cursor: String
+    direction: String!
+  ): MessagesNextAsString!
+
+  # API that will return the focused chat sandwiched between 1 message above if available and at least 1 message below
+  getMessagesByChannelSlugUsingCreatedAtAsCursorFromNotification(
+    channelSlug: String!
+    count: Int
+    cursor: String
+  ): MessagesNextAsString!
+
+  # API that is a combination of getMessagesByChannelSlugUsingCreatedAtAsCursor (commented) and getMessagesByChannelSlugUsingCreatedAtAsCursorFromNotification
+  getMessagesByChannelSlugUsingCreatedAtAsCursorV2(
+    channelSlug: String!
+    count: Int
+    cursor: String
+    direction: String!
+    withAdditional: Boolean!
+  ): MessagesNextAsString!
+  getUserInvite(id: String!): UserInvite
+  getUnreadMessages(lockerRoomID: String!): [ReadMessage]
+  getDeletedChannelAndChannelGroups: ChannelAndChannelGroup
+  getFanGroup(id: String, slug: String): FanGroup
+  getFanGroups: FanGroups!
+  getPhotoURL(
+    objectID: String!
+    objectType: String!
+    isSport: Boolean
+    type: String
+  ): String
+  getPhotoURLs(input: [InputQueryMedia!]!): [String]
+  getNotifications(isRead: Boolean, count: Int, cursor: Int): Notifications
+  getNotification(id: String!): Notification
+  getNotificationWithMessages(id: String!): NotificationWithMessages
+  getUtilities: Utilities
+  getInHouse(id: String, slug: String): InHouse
+  getInHouses: InHouses!
+  getGame(gameID: Int!): Game
+  getGames(
+    next: String
+    type: String!
+    count: Int
+    leagueCodes: String
+    partnerNames: String
+  ): Games!
+  getGamesV2(
+    next: String
+    type: String!
+    count: Int
+    leagueCodes: [String!]
+    partnerNames: [String!]
+  ): Games!
+  getUpcomingGames(leagueCodes: [String!]!): [UpcomingGamesByLeagueCode]!
+  getFeaturedGame: Game
+  getGamePartners: GamePartners!
+  getGameRemindersForCloudFunction: [GameReminder]!
+}
+
+type Mutation {
+  createUser(input: InputUser!): MutationResult!
+  editUser(input: InputEditUser!): MutationResult!
+  changeEmail(input: InputChangeEmail!): MutationResult!
+  confirmEmailChange(input: InputChangeEmail!): MutationResult!
+  deleteUser: MutationResult!
+  deleteFirebaseAccount: MutationResult!
+  blockUser(targetUserID: String!): MutationResult!
+  unblockUser(targetUserID: String!): MutationResult!
+  addZipCode(zipCode: String!): ZipCode!
+  updateUserAvatar(objectID: String): MutationResult!
+  updateUserUsername(username: String): MutationResult!
+  createClub(input: InputCreateClub!): MutationResult!
+  editClub(id: String!, input: InputEditClub!): MutationResult!
+  createChannelGroup(input: InputCreateChannelGroup!): MutationResult!
+  editChannelGroup(id: String!, input: InputEditChannelGroup!): MutationResult!
+  deleteChannelGroup(id: String!): MutationResult!
+  undeleteChannelGroup(id: String!): MutationResult!
+  createChannel(input: InputCreateChannel!): MutationResult!
+  editChannel(id: String!, input: InputEditChannel!): MutationResult!
+  deleteChannel(id: String!): MutationResult!
+  undeleteChannel(id: String!): MutationResult!
+  leavePrivateChannel(privateChannelID: String!): MutationResult!
+  acceptInvitationToPrivateChannel(token: String!): MutationResult!
+
+  # Use to set the settings for channel notifications. i.e. Turn it on/off.
+  setChannelNotification(
+    activate: Boolean!
+    channelID: String!
+  ): MutationResult!
+
+  # Use to create private encrypted messaging channels.
+  createPrivateEncryptedChannel(
+    input: InputCreatePrivateEncryptedChannel!
+  ): MutationResult!
+
+  # Use to invite and remove members in the private encrypted channel.
+  manageChannelMembers(
+    addedUserIDs: [String!]!
+    removedUserIDs: [String!]!
+    channelID: String!
+  ): MutationResult!
+
+  # Use to separately invite user to private encrypted channel. Recommended to just use manageChannelMembers mutation.
+  inviteUserToPrivateEncryptedChannel(
+    channelID: String!
+    invitedUserIDs: [String!]!
+  ): MutationResult!
+
+  # Use to accept the invitation made by the owner to access the private encrypted channel.
+  acceptPrivateEncryptedChannelInvitation(channelID: String!): MutationResult!
+
+  # Use to decline the invitation made by the owner to access the private encrypted channel.
+  declinePrivateEncryptedChannelInvitation(channelID: String!): MutationResult!
+
+  # Use to join the private encrypted channel via the dynamic link generated.
+  joinPrivateEncryptedChannel(userInviteID: String!): MutationResult!
+
+  # Use to leave the private encrypted channel if joiner and to delete it if an owner.
+  leavePrivateEncryptedChannel(channelID: String!): MutationResult!
+
+  # If UserRole exists as owner/manager, no changes will be made.
+  support(lockerRoomID: String!): MutationResult!
+
+  # If UserRole exists as owner/manager, no changes will be made.
+  unsupport(lockerRoomID: String!): MutationResult!
+  registerInterest(type: String!, data: JSON): MutationResult!
+    @deprecated(
+      reason: "Use createFormEntry with type 'RegisterInterest' instead"
+    )
+  createFormEntry(type: String!, data: JSON): MutationResult!
+  sendMessage(
+    channelSlug: String!
+    text: String
+    chatID: String!
+    repliedToChatID: String
+    Media: [InputMedia!]
+    MentionedUserIDs: [String!]
+    gif: String
+    isEncrypted: Boolean
+  ): MutationResult!
+  editMessage(
+    chatID: String!
+    text: String
+    repliedToChatID: String
+    Media: [InputMedia!]
+    MentionedUserIDs: [String!]
+    gif: String
+  ): MutationResult!
+  deleteMessage(
+    chatID: String!
+    deleteForSelf: Boolean!
+    deleteForEveryone: Boolean!
+  ): MutationResult!
+  deleteImages(objectIDs: [String!]!): MutationResult!
+  respondUserManagerialRoleInvite(id: String!): MutationResult!
+  inviteUserForManagerialRole(
+    lockerRoomID: String!
+    input: [InputInviteUserForManagerialRole!]!
+  ): MutationResult!
+  removeUserManagerialRole(
+    lockerRoomID: String!
+    userID: String!
+    role: String!
+  ): MutationResult!
+  editLockerRoomUserRole(
+    lockerRoomID: String!
+    userID: String!
+    role: String!
+  ): MutationResult!
+  updateLockerRoomUserRoles(
+    lockerRoomID: String!
+    input: [InputUpdateLockerRoomUserRoles!]!
+  ): MutationResult!
+  readMessage(channelSlug: String!): MutationResult!
+  trackLogin(
+    loginMethod: String!
+    ip: String
+    platform: String!
+    webDisplaySize: String
+    pageName: String!
+    model: String
+    browser: String
+    browserVersion: String
+    os: String
+  ): MutationResult!
+  trackRegisterAccount(
+    username: String!
+    emailAddress: String!
+    avatar: String!
+    registrationMethod: String!
+    invited: Boolean!
+    avatarObjectID: String
+    ip: String
+    platform: String!
+    webDisplaySize: String
+    pageName: String!
+    model: String
+    browser: String
+    browserVersion: String
+    os: String
+  ): MutationResult!
+  trackSendMessage(
+    sport: String!
+    lockerRoomType: String!
+    league: String
+    name: String!
+    channel: String!
+    type: String!
+    ip: String
+    platform: String!
+    webDisplaySize: String
+    pageName: String!
+    model: String
+    browser: String
+    browserVersion: String
+    os: String
+  ): MutationResult!
+  trackSupportLockerRoom(
+    sport: String!
+    lockerRoomType: String!
+    league: String
+    name: String!
+    ip: String
+    platform: String!
+    webDisplaySize: String
+    pageName: String!
+    model: String
+    browser: String
+    browserVersion: String
+    os: String
+  ): MutationResult!
+  trackUnsupportLockerRoom(
+    sport: String!
+    lockerRoomType: String!
+    league: String
+    name: String!
+    ip: String
+    platform: String!
+    webDisplaySize: String
+    pageName: String!
+    model: String
+    browser: String
+    browserVersion: String
+    os: String
+  ): MutationResult!
+  trackViewPage(
+    platform: String!
+    webDisplaySize: String
+    pageName: String!
+    sport: String
+    lockerRoomType: String
+    league: String
+    name: String
+    channel: String
+    model: String
+    browser: String
+    browserVersion: String
+    ip: String
+    os: String
+  ): MutationResult!
+  trackCreatePrivateRoom(
+    sport: String!
+    league: String
+    name: String!
+    homeTeam: String!
+    awayTeam: String!
+    ip: String
+    platform: String!
+    webDisplaySize: String
+    pageName: String
+    model: String
+    browser: String
+    browserVersion: String
+    os: String
+  ): MutationResult!
+  readNotification(notificationIDs: [String!]!): MutationResult!
+  seenNotification(lastNotificationID: String!): MutationResult!
+  setGameReminder(gameID: String!): MutationResult!
+  unsetGameReminder(gameID: String!): MutationResult!
+  getAccessToken(privateGroup: String!): MutationResult!
+  createGame(game: InputCreateGame!): MutationResult!
+}

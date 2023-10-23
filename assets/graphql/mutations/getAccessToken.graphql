@@ -1,0 +1,8 @@
+mutation getAccessToken(
+  $privateGroup: String!
+) {
+  getAccessToken(privateGroup: $privateGroup) {
+    objectID
+    success
+  }
+}

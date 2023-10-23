@@ -1,0 +1,18 @@
+query getSportsWithIcon($slugs: [String!]) {
+  getSportsWithIcon(slugs: $slugs) {
+    count
+    total
+    next
+    items {
+      id
+      name
+      slug
+      Icon {
+        objectID
+        objectType
+        isSport
+        PhotoURL
+      }
+    }
+  }
+}

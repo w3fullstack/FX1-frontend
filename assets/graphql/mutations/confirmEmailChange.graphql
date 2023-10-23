@@ -1,0 +1,5 @@
+mutation confirmEmailChange ($input: InputChangeEmail!) {
+    confirmEmailChange (input: $input) {
+        success
+    }
+}

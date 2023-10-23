@@ -1,0 +1,42 @@
+query getJoinedPrivateEncryptedChannels($search: String) {
+  Me {
+    id
+
+    JoinedPrivateEncryptedChannels(search: $search) {
+      id
+      slug
+      name
+      Roles {
+        Owners {
+          User {
+            id
+          }
+        }
+        Joiners {
+          User {
+            id
+            username
+            Avatar {
+              objectID
+              PhotoURL
+            }
+          }
+        }
+      }
+      ChannelPhoto {
+        PhotoURL
+        objectID
+      }
+      LastMessage {
+        createdAt
+        text
+        isEncrypted
+        User {
+          id
+          username
+        }
+      }
+      EncryptionKey
+    }
+  }
+}

@@ -1,0 +1,30 @@
+query Supporting {
+  Supporting {
+    name
+    slug
+    defaultChannelSlug
+    totalUnreadMessagesCount
+    ChannelGroups{
+      slug
+      Channels {
+        slug
+        unreadMessagesCount
+      }
+    }
+    Club {
+      Avatar {
+        PhotoURL
+      }
+    }
+    League {
+      Avatar {
+        PhotoURL
+      }
+    }
+    FanGroup {
+      Avatar {
+        PhotoURL
+      }
+    }
+  }
+}

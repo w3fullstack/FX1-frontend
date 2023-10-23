@@ -1,0 +1,6 @@
+#import '../fragments/Game.graphql'
+query getGame($gameID: Int!) {
+  getGame(gameID: $gameID) {
+    ...GameContents
+  }
+}

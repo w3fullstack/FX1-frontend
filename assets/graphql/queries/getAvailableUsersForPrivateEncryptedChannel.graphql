@@ -1,0 +1,24 @@
+query getAvailableUsersForPrivateEncryptedChannel(
+  $group: String
+  $next: String
+  $count: Int
+  $name: String
+) {
+  getAvailableUsersForPrivateEncryptedChannel(
+    group: $group
+    next: $next
+    count: $count
+    name: $name
+  ) {
+    count
+    next
+    total
+    items {
+      username
+      id
+      Avatar {
+        PhotoURL
+      }
+    }
+  }
+}

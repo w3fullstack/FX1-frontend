@@ -1,0 +1,40 @@
+#import './Link.graphql'
+fragment GameContents on Game {
+  sport
+  gameID
+  date
+  points
+  team1ID
+  team1City
+  team1Name
+  team1Ranking
+  team1Score
+  team1Color
+  team1Logo
+  team2ID
+  team2City
+  team2Name
+  team2Ranking
+  team2Score
+  team2Color
+  team2Logo
+  location
+  headline
+  timeLeft
+  competition
+  coverImage
+  pointsLevel
+  excitementLevel
+  highPoints
+  leagueCode
+  isReminded
+  team1Nickname
+  team2Nickname
+  team1DisplayName
+  team2DisplayName
+  group
+  isLive
+  links {
+    ...LinkContents
+  }
+}

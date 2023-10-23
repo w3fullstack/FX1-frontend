@@ -1,0 +1,12 @@
+overwrite: true
+debug: true
+schema: './schema.graphql'
+documents: './assets/graphql/**/*.graphql'
+generates:
+  types/graphql.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request
+    config:
+      gqlImport: graphql-request#gql

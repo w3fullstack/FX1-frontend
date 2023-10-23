@@ -1,0 +1,53 @@
+#import './fragment/Club.graphql'
+#import './fragment/League.graphql'
+#import './fragment/FanGroup.graphql'
+#import './fragment/ChannelGroup.graphql'
+#import './fragment/UserRole.graphql'
+#import './fragment/Game.graphql'
+
+fragment LockerRoomContents on LockerRoom {
+  id
+  name
+  slug
+  group
+  defaultChannelSlug
+  channelCount
+  supporterCount
+  isSupported
+  totalUnreadMessagesCount
+  Game {
+    ...GameContents
+  }
+  MyRole {
+    ...UserRoleContents
+  }
+  Sports {
+    Avatar {
+      PhotoURL
+    }
+    name
+  }
+  Club {
+    ...ClubContents
+  }
+  League {
+    ...LeagueContents
+  }
+  FanGroup {
+    ...FanGroupContents
+  }
+  ChannelGroups {
+    ...ChannelGroupsContents
+  }
+  Roles {
+    Owners {
+      ...UserRoleContents
+    }
+    Managers {
+      ...UserRoleContents
+    }
+    Supporters {
+      ...UserRoleContents
+    }
+  }
+}

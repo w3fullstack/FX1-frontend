@@ -1,0 +1,8 @@
+mutation acceptPrivateEncryptedChannelInvitation ($channelID: String!) {
+    acceptPrivateEncryptedChannelInvitation(channelID: $channelID) {
+        objectID
+        objectType
+        success
+        timestamp
+    }
+}

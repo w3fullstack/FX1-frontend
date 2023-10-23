@@ -1,0 +1,8 @@
+mutation updateUserUsername ($username: String!) {
+  updateUserUsername (username: $username) {
+    objectID
+    objectType
+    success
+    timestamp
+  }
+}

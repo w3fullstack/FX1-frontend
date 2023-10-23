@@ -1,0 +1,8 @@
+fragment LinkContents on Link {
+  source
+  type
+  url
+  iconUrl
+  logoUrl
+  avatarUrl
+}

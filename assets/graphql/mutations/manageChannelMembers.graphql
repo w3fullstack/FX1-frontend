@@ -1,0 +1,16 @@
+mutation manageChannelMembers(
+  $addedUserIDs: [String!]!
+  $removedUserIDs: [String!]!
+  $channelID: String!
+) {
+  manageChannelMembers(
+    addedUserIDs: $addedUserIDs
+    removedUserIDs: $removedUserIDs
+    channelID: $channelID
+  ) {
+    objectID
+    objectType
+    success
+    timestamp
+  }
+}

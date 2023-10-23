@@ -1,0 +1,13 @@
+query getUsersViaUsernameOnPrivateGroup($text: String!, $privateChannelID: String!) {
+  getUsersViaUsernameOnPrivateGroup(text: $text, privateChannelID: $privateChannelID) {
+    count
+    next
+    items {
+      username
+      id
+      Avatar {
+        PhotoURL
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+mutation updateUserAvatar ($objectID: String) {
+  updateUserAvatar (objectID: $objectID) {
+    objectID
+    objectType
+    success
+    timestamp
+  }
+}

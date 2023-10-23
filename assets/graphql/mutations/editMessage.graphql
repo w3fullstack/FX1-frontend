@@ -1,0 +1,20 @@
+mutation editMessage(
+  $chatID: String!
+  $text: String
+  $repliedToChatID: String
+  $Media: [InputMedia!],
+  $gif: String
+) {
+  editMessage(
+    chatID: $chatID
+    text: $text
+    repliedToChatID: $repliedToChatID
+    Media: $Media
+    gif: $gif
+  ) {
+    timestamp
+    success
+    objectID
+    objectType
+  }
+}

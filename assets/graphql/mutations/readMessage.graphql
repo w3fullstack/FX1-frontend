@@ -1,0 +1,5 @@
+mutation readMessage($channelSlug: String!) {
+  readMessage(channelSlug: $channelSlug) {
+    objectID
+  }
+}
